@@ -26,3 +26,23 @@ class Solution {
         }
     }
 };
+
+// using reverse post-order traversal
+class Solution {
+  public:
+    Node* prev = nullptr;
+
+    void helper(Node* node) {
+        if (!node) return;
+
+        helper(node->right);
+        helper(node->left);
+
+        node->right = prev;
+        node->left = nullptr;
+        prev = node;
+    }
+    void flatten(Node *root) {
+        helper(root);
+    }
+};
