@@ -14,6 +14,50 @@
     Merging all this traversals in single array we get {1,3,2,4,5,6,7}.
 
 */
+
+//one more approch (LEETCODE)
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(root==NULL) return {};
+        deque<TreeNode*>dq;
+        dq.push_back(root);
+        bool leftToRight = true;
+        vector<vector<int>>ans;
+        while(!dq.empty()){
+            int n=dq.size();
+            vector<int>currLevel;
+            for(int i=0;i<n;i++){
+                if(leftToRight){
+                    TreeNode* node = dq.front();
+                    dq.pop_front();
+                    currLevel.push_back(node->val);
+                    if(node->left){
+                        dq.push_back(node->left);
+                    }
+                    if(node->right){
+                        dq.push_back(node->right);
+                    }
+                }
+                else{
+                    TreeNode* node = dq.back();
+                    dq.pop_back();
+                    currLevel.push_back(node->val);
+                    if(node->right){
+                        dq.push_front(node->right);
+                    }
+                    if(node->left){
+                        dq.push_front(node->left);
+                    }
+                }
+            }
+            ans.push_back(currLevel);
+            leftToRight = !leftToRight;
+        }
+        return ans;
+    }
+};
+
 // without reverse() or deque
 class Solution {
   public:
