@@ -10,6 +10,22 @@
     Explanation: The height difference between the left and right subtrees at all nodes is at most 1. 
     Hence, the tree is balanced.
 */
+// timeComplexity -> O(N)
+class Solution {
+public:
+    int check(TreeNode* root){
+        if(root==NULL) return 0;
+        int left = check(root->left);
+        if(left == -1) return -1;
+        int right = check(root->right);
+        if(right == -1) return -1;
+        if(abs(left-right) > 1) return -1;
+        return 1 + max(left,right);
+    }
+    bool isBalanced(TreeNode* root) {
+        return check(root) != -1 ;
+    }
+};
 
 // timeComplexity -> O(N)
 class Solution {
